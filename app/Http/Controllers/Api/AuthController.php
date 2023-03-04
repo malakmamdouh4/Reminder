@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Traits\ApiTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -41,6 +43,22 @@ class AuthController extends Controller
 
         $msg = trans('auth.registered_successfully');
         return $this->successReturn($msg, $data);
+    }
+
+    public function login(LoginRequest $request){
+        $number = $this->convert2english($request->phone);
+        $phone  = $this->phoneValidate($number);
+
+        if(Auth::attempt(['phone' => $phone, 'password' => $request->password])){
+            $user = Auth::user();
+            $data['token'] = $user->createToken('Laravel Password Grant Client')->accessToken;
+            $data['user'] = new UserResource($user);
+
+            return $this->successReturn('', $data);
+        }else{
+            $msg = trans('auth.wrong_credentials');
+            return $this->failMsg($msg);
+        }
     }
 
 }
