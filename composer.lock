@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e8ff36889849a2a6f019f3dec505a67",
+    "content-hash": "4b1f78cfaed0400c8fce1e723704876d",
     "packages": [
         {
             "name": "brick/math",
@@ -4009,6 +4009,147 @@
             "time": "2023-01-12T18:13:24+00:00"
         },
         {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.14.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "bab62023a4745a61170ad5424184533685e73c2d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/bab62023a4745a61170ad5424184533685e73c2d",
+                "reference": "bab62023a4745a61170ad5424184533685e73c2d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.28|^10.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^7.7|^8.0",
+                "pestphp/pest": "^1.22",
+                "phpunit/phpunit": "^9.5.24",
+                "spatie/pest-plugin-test-time": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.14.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-03-14T16:41:21+00:00"
+        },
+        {
+            "name": "spatie/laravel-translatable",
+            "version": "6.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-translatable.git",
+                "reference": "b3f6fa43ce05d7640ca9eacf4fee9c0037fc84d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/b3f6fa43ce05d7640ca9eacf4fee9c0037fc84d2",
+                "reference": "b3f6fa43ce05d7640ca9eacf4fee9c0037fc84d2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^9.0|^10.0",
+                "illuminate/support": "^9.0|^10.0",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.11"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^7.0|^8.0",
+                "pestphp/pest": "^1.20"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Translatable\\TranslatableServiceProvider"
+                    ]
+                },
+                "aliases": {
+                    "Translatable": "Spatie\\Translatable\\Facades\\Translatable"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Translatable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A trait to make an Eloquent model hold translations",
+            "homepage": "https://github.com/spatie/laravel-translatable",
+            "keywords": [
+                "eloquent",
+                "i8n",
+                "laravel-translatable",
+                "model",
+                "multilingual",
+                "spatie",
+                "translate"
+            ],
+            "support": {
+                "source": "https://github.com/spatie/laravel-translatable/tree/6.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-01-14T20:57:45+00:00"
+        },
+        {
             "name": "stella-maris/clock",
             "version": "0.1.7",
             "source": {
@@ -6868,6 +7009,73 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "jn-jairo/laravel-ngrok",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jn-jairo/laravel-ngrok.git",
+                "reference": "4c2466fc8dd884e253aae0744a12cb98348cbfa3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jn-jairo/laravel-ngrok/zipball/4c2466fc8dd884e253aae0744a12cb98348cbfa3",
+                "reference": "4c2466fc8dd884e253aae0744a12cb98348cbfa3",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.5.8|^7.4.5",
+                "illuminate/console": "^8.83|^9.0|^10.0",
+                "illuminate/http": "^8.83|^9.0|^10.0",
+                "illuminate/pagination": "^8.83|^9.0|^10.0",
+                "illuminate/routing": "^8.83|^9.0|^10.0",
+                "illuminate/support": "^8.83|^9.0|^10.0",
+                "php": "^8.1",
+                "symfony/process": "^5.4|^6.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.24|^7.0|^8.0",
+                "pestphp/pest": "^1.22",
+                "pestphp/pest-plugin-parallel": "^1.2",
+                "phpspec/prophecy": "^1.17",
+                "phpspec/prophecy-phpunit": "^2.0",
+                "webmozart/assert": "^1.11"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JnJairo\\Laravel\\Ngrok\\NgrokServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JnJairo\\Laravel\\Ngrok\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jairo Correa",
+                    "email": "jn.j41r0@gmail.com"
+                }
+            ],
+            "description": "Share Laravel application with ngrok.",
+            "homepage": "https://github.com/jn-jairo/laravel-ngrok",
+            "keywords": [
+                "jn-jairo",
+                "laravel-ngrok"
+            ],
+            "support": {
+                "issues": "https://github.com/jn-jairo/laravel-ngrok/issues",
+                "source": "https://github.com/jn-jairo/laravel-ngrok/tree/v3.0.0"
+            },
+            "time": "2023-02-26T01:44:49+00:00"
         },
         {
             "name": "laravel/pint",
