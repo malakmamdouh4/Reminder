@@ -48,6 +48,18 @@ trait ApiTrait
         ]);
     }
 
+    public function successReturnLogin($msg = '', $data = [], $code = 200): \Illuminate\Http\JsonResponse
+    {
+
+        return response()->json([
+            'user_status' => $data['user']['status'],
+            'msg' => $msg,
+            'key' => 'success',
+            'code' => $code,
+            'data' => $data
+        ]);
+    }
+
     public function requestFailsReturn($validator, $type = 'all_in_string'): \Illuminate\Http\JsonResponse
     {
         switch ($type) {

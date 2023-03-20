@@ -32,6 +32,7 @@ return [
     'deleted_success'=>'تم الحذف بنجاح',
     'required_code'=>'كود التفعيل مطلوب',
     'wrong_code'=>'كود التفعيل خاطئ',
-    'registered_successfully' => 'تم التسجيل بنجاح'
+    'registered_successfully' => 'تم التسجيل بنجاح',
+    'code_is_correct' => 'الكود صحيح'
 ];
 

@@ -6,6 +6,8 @@ use App\Traits\ApiTrait;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
+
 //use App\Traits\Responses;
 //use Illuminate\Http\Request;
 
@@ -28,6 +30,8 @@ class RegisterRequest extends FormRequest
             'password'      => 'required|confirmed|min:8',
             'gender'        => 'required',
             'date_birth'    => 'required',
+            'type'          => ['required' ,Rule::in(['family', 'patient','care_giver' ])  ],
+            'user_id'       => 'required_unless:type,family'
         ];
     }
 

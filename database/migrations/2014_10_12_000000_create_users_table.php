@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->nullable()->unique();
@@ -32,8 +33,8 @@ return new class extends Migration
             $table->string('long')->nullable();
             $table->text('address')->nullable();
             $table->string('lang')->default('ar')->nullable();
-            $table->enum('complete_patient_info', ['true', 'false'])->nullable();
-            $table->enum('complete_giver_info', ['true', 'false'])->nullable();
+            $table->enum('complete_patient_info', ['true', 'false'])->nullable()->default('false');
+            $table->enum('complete_giver_info', ['true', 'false'])->nullable()->default('false');
             $table->rememberToken();
             $table->timestamps();
         });

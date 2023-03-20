@@ -32,5 +32,6 @@ return [
     'wrong_password' => 'Old Password is incorrect',
     'required_code' => 'verification code is required',
     'wrong_code' => 'wrong code',
-    'registered_successfully'=>'user registered successfully'
+    'registered_successfully'=>'user registered successfully',
+    'code_is_correct' => 'code is correct',
 ];

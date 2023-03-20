@@ -8,16 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 //use Laravel\Sanctum\HasApiTokens;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'first_name',
         'last_name',
@@ -38,23 +34,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'complete_patient_info',
         'complete_giver_info',
         'type',
+        'user_id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'phone_verified_at' => 'datetime',
@@ -64,14 +51,44 @@ class User extends Authenticatable implements MustVerifyEmail
         return '0' . $this->phone;
     }
 
+    public function setPasswordAttribute($value) {
+        if ($value != null) {
+            $this->attributes['password'] = Hash::make($value);
+        }
+    }
+
     public function sendVerificationCode($has_changed_phone = 'false') {
         // $code = mt_rand(111111, 999999);
         $code         = '123456';
         $data['code'] = $code;
-
-        // Mail::to($this->email)->send(new PassCode($code));
-
         $this->update(['code' => $code]);
+    }
+
+    public function isFather()
+    {
+        return is_null($this->attributes['user_id']);
+    }
+
+    protected $appends = ['is_father'];
+
+    public function getIsFatherAttribute()
+    {
+        return is_null($this->attributes['user_id']);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function branches()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function histories()
+    {
+        return $this->hasMany(History::class);
     }
 
 }
