@@ -37,6 +37,9 @@ Route::middleware("api.lang")->group(function () {
           Route::post('update-medical-history', [\App\Http\Controllers\Api\HistoryController::class, 'updateMedicalHistory']);
           Route::get('get-history', [\App\Http\Controllers\Api\HistoryController::class, 'getHistory']);
 
+          Route::post('add-task', [\App\Http\Controllers\Api\TaskController::class, 'addTask']);
+          Route::get('get-tasks', [\App\Http\Controllers\Api\TaskController::class, 'getTasks']);
+
         });
     });
 

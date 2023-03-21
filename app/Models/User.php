@@ -91,4 +91,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(History::class);
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
 }
