@@ -40,6 +40,11 @@ Route::middleware("api.lang")->group(function () {
           Route::post('add-task', [\App\Http\Controllers\Api\TaskController::class, 'addTask']);
           Route::get('get-tasks', [\App\Http\Controllers\Api\TaskController::class, 'getTasks']);
 
+          Route::post('add-reminder', [\App\Http\Controllers\Api\ReminderController::class, 'addReminder']);
+          Route::get('get-reminders', [\App\Http\Controllers\Api\ReminderController::class, 'getReminders']);
+          Route::post('update-reminder', [\App\Http\Controllers\Api\ReminderController::class, 'updateReminder']);
+          Route::post('delete-reminder', [\App\Http\Controllers\Api\ReminderController::class, 'deleteReminder']);
+
         });
     });
 
