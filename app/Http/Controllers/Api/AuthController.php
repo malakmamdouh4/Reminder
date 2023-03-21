@@ -47,7 +47,10 @@ class AuthController extends Controller
         }
 
         $user = User::create($request->except('password_confirmation'));
-        $user->sendVerificationCode();
+
+        if($user->type == 'patient' || $user->type == 'care_giver'){
+            $user->sendVerificationCode();
+        }
 
         $data['token'] = $user->createToken('Laravel Password Grant Client')->accessToken;
         $data['user'] = new UserResource($user);
