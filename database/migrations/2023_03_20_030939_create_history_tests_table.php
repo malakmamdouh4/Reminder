@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('test');
             $table->string('result');
             $table->string('date');
+            $table->foreignId('history_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

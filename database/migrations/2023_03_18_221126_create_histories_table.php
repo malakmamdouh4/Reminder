@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('degree');
             $table->text('diagnose');
             $table->text('symptoms');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
