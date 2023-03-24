@@ -20,7 +20,6 @@ Route::middleware("api.lang")->group(function () {
     Route::group(['prefix' => 'user'], function () {
         Route::post('register', [\App\Http\Controllers\Api\AuthController::class, 'register']);
         Route::post('login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
-        Route::post('patient_info', [\App\Http\Controllers\Api\AuthController::class, 'patientInfo']);
     });
 
     Route::post('/password/forget', [\App\Http\Controllers\Api\AuthController::class, 'forgetPassword']);
@@ -31,6 +30,8 @@ Route::middleware("api.lang")->group(function () {
     Route::get('/countries', [\App\Http\Controllers\Api\HomeController::class, 'countries']);
 
     Route::middleware('auth:api')->group( function () {
+        Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
+       
         Route::middleware('api.active')->group(function () {
 
           Route::post('add-medical-history', [\App\Http\Controllers\Api\HistoryController::class, 'addMedicalHistory']);

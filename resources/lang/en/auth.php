@@ -34,4 +34,5 @@ return [
     'wrong_code' => 'wrong code',
     'registered_successfully'=>'user registered successfully',
     'code_is_correct' => 'code is correct',
+    'logout_success' => 'logout successfully',
 ];

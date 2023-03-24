@@ -33,6 +33,7 @@ return [
     'required_code'=>'كود التفعيل مطلوب',
     'wrong_code'=>'كود التفعيل خاطئ',
     'registered_successfully' => 'تم التسجيل بنجاح',
-    'code_is_correct' => 'الكود صحيح'
+    'code_is_correct' => 'الكود صحيح',
+    'logout_success' => 'تم تسجيل الخروج بنجاح',
 ];
 

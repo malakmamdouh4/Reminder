@@ -11,6 +11,7 @@ use App\Http\Requests\VerifyCodeRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Traits\ApiTrait;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -125,6 +126,14 @@ class AuthController extends Controller
         $user->update(['password'=>$request['password']]);
 
         $msg = trans('auth.password_changed');
+        return $this->successMsg($msg);
+    }
+
+    public function logout(Request $request) {
+        $token = $request->user()->token();
+        $token->revoke();
+
+        $msg = trans('auth.logout_success');
         return $this->successMsg($msg);
     }
 
