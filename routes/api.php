@@ -46,6 +46,9 @@ Route::middleware("api.lang")->group(function () {
           Route::post('update-reminder', [\App\Http\Controllers\Api\ReminderController::class, 'updateReminder']);
           Route::post('delete-reminder', [\App\Http\Controllers\Api\ReminderController::class, 'deleteReminder']);
 
+          Route::post('add-track', [\App\Http\Controllers\Api\TrackController::class, 'addTrack']);
+          Route::get('get-tracks', [\App\Http\Controllers\Api\TrackController::class, 'getTracks']);
+
         });
     });
 
