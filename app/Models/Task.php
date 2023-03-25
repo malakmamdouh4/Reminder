@@ -18,6 +18,7 @@ class Task extends Model
         'description',
         'is_important',
         'user_id',
+        'is_completed',
     ];
 
     public function user()

@@ -24,8 +24,9 @@ class TasksResource extends JsonResource
             'from'                   => $this->from ??'',
             'to'                     => $this->to ??'',
             'repeat'                 => $this->repeat ??'',
-            'is_important'           => $this->is_important == 'true' ? 'true' : 'false',
+            'is_important'           => $this->is_important == 'true' ? true : false,
             'description'            => $this->description ??'',
+            'is_completed'           => $this->is_completed == 'true' ? true : false,
         ];
     }
 

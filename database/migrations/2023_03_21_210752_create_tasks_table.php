@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('repeat');
             $table->text('description');
             $table->string('is_important');
+            $table->enum('is_completed',['true','false'])->default('false');
             $table->timestamps();
         });
     }
