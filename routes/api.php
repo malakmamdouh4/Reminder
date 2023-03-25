@@ -49,6 +49,10 @@ Route::middleware("api.lang")->group(function () {
           Route::post('add-track', [\App\Http\Controllers\Api\TrackController::class, 'addTrack']);
           Route::get('get-tracks', [\App\Http\Controllers\Api\TrackController::class, 'getTracks']);
 
+          Route::post('add-memory', [\App\Http\Controllers\Api\MemoryController::class, 'addMemory']);
+          Route::get('get-memories', [\App\Http\Controllers\Api\MemoryController::class, 'getMemories']);
+          Route::get('get-memory', [\App\Http\Controllers\Api\MemoryController::class, 'getMemory']);
+
         });
     });
 
