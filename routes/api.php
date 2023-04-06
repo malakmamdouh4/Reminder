@@ -21,6 +21,7 @@ Route::middleware("api.lang")->group(function () {
         Route::post('register', [\App\Http\Controllers\Api\AuthController::class, 'register']);
         Route::post('login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
     });
+    Route::post('user_login', [\App\Http\Controllers\Api\AuthController::class, 'userLogin']);
 
     Route::post('/password/forget', [\App\Http\Controllers\Api\AuthController::class, 'forgetPassword']);
     Route::post('/password/reset-activation', [\App\Http\Controllers\Api\AuthController::class, 'resetPasswordActivation']);
@@ -32,7 +33,7 @@ Route::middleware("api.lang")->group(function () {
     Route::middleware('auth:api')->group( function () {
         Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
        
-        Route::middleware('api.active')->group(function () {
+        // Route::middleware('api.active')->group(function () {
 
           Route::post('add-medical-history', [\App\Http\Controllers\Api\HistoryController::class, 'addMedicalHistory']);
           Route::post('update-medical-history', [\App\Http\Controllers\Api\HistoryController::class, 'updateMedicalHistory']);
@@ -53,7 +54,7 @@ Route::middleware("api.lang")->group(function () {
           Route::get('get-memories', [\App\Http\Controllers\Api\MemoryController::class, 'getMemories']);
           Route::get('get-memory', [\App\Http\Controllers\Api\MemoryController::class, 'getMemory']);
 
-        });
+        // });
     });
 
 

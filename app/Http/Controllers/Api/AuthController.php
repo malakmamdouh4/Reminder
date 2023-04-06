@@ -35,16 +35,17 @@ class AuthController extends Controller
         $request['phone']                 = $phone;
         $request['status']                = 'active';
 
-        if ($request->type == 'patient'){
-            $request['status']                = 'pending';
-            $request['complete_patient_info'] = 'true';
-            $request['complete_giver_info'] = 'false';
-
-        }elseif($request->type == 'care_giver'){
-            $request['status']                = 'pending';
-            $request['complete_patient_info'] = 'true';
-            $request['complete_giver_info'] = 'true';
-            
+        if($request['user_id'] && $user = User::find($request['user_id'])){
+            $request['status']                         = 'pending';
+            if ($request->type == 'patient'){
+                $user->complete_patient_info           = 'true';
+                $user->save();
+                $request['complete_patient_info']      = 'true';
+            }elseif($request->type == 'care_giver'){
+                $user->complete_giver_info             = 'true';
+                $user->save();
+                $request['complete_giver_info']      = 'true';
+            }
         }
 
         $user = User::create($request->except('password_confirmation'));
@@ -74,6 +75,27 @@ class AuthController extends Controller
             $msg = trans('auth.wrong_credentials');
             return $this->failMsg($msg);
         }
+    }
+
+    public function userLogin(VerifyCodeRequest $request){
+        $number         = $this->convert2english($request->phone);
+        $phone          = $this->phoneValidate($number);
+
+        $user = User::where('phone', $phone)->first();
+
+        if (!$user) {
+            $msg = trans('auth.user_not_found');
+            return $this->failMsg($msg);
+        }
+
+        if($user->code != $request['code']){
+            $msg = trans('auth.invalid_code');
+            return $this->failMsg($msg);
+        }
+
+        $data['token'] = $user->createToken('Laravel Password Grant Client')->accessToken;
+        $data['user'] = new UserResource($user);
+        return $this->successReturnLogin('', $data);
     }
 
     public function forgetPassword(ForgetPasswordRequest $request) {
