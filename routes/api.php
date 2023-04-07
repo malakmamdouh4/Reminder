@@ -53,6 +53,9 @@ Route::middleware("api.lang")->group(function () {
           Route::post('add-memory', [\App\Http\Controllers\Api\MemoryController::class, 'addMemory']);
           Route::get('get-memories', [\App\Http\Controllers\Api\MemoryController::class, 'getMemories']);
           Route::get('get-memory', [\App\Http\Controllers\Api\MemoryController::class, 'getMemory']);
+          
+          Route::post('update-location', [\App\Http\Controllers\Api\HomeController::class, 'updateLocation']);
+          Route::get('get-location', [\App\Http\Controllers\Api\HomeController::class, 'getLocation']);
 
         // });
     });
