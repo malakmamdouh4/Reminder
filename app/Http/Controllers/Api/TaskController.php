@@ -9,10 +9,13 @@ use App\Models\Task;
 use App\Traits\ApiTrait;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Resources\TasksResource;
+use App\Traits\NotificationTrait;
+use Notification;
+use App\Notifications\TaskNotification;
 
 class TaskController extends Controller
 {
-    use ApiTrait;
+    use ApiTrait , NotificationTrait;
 
     public function addTask(StoreTaskRequest $request){
         $user = auth()->user();
@@ -24,7 +27,14 @@ class TaskController extends Controller
         }
 
         $task = $patient->tasks()->create($request->validated());
-       
+        
+        $data = [
+            'title' => $task->title,
+            'body' => $task->description,
+        ];
+        $patient->notify(new TaskNotification($task));
+        $this->sendNotification($patient,$data);
+
         $msg = trans('home.added_successfully');
         return $this->successMsg($msg);
     }

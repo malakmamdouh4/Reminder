@@ -11,10 +11,13 @@ use App\Traits\ApiTrait;
 use App\Http\Requests\StoreMemoryRequest;
 use App\Http\Resources\MemoriesResource;
 use App\Http\Resources\MemoryResource;
+use App\Traits\NotificationTrait;
+use Notification;
+use App\Notifications\MemoryNotification;
 
 class MemoryController extends Controller
 {
-    use ApiTrait;
+    use ApiTrait , NotificationTrait ;
 
     public function addMemory(StoreMemoryRequest $request){
         $user = auth()->user();
@@ -34,6 +37,13 @@ class MemoryController extends Controller
                 ]);
            }
         }
+
+        $data = [
+            'title' => $memory->title,
+            'body' => $memory->date,
+        ];
+        $patient->notify(new MemoryNotification($memory));
+        $this->sendNotification($patient,$data);
        
         $msg = trans('home.added_successfully');
         return $this->successMsg($msg);

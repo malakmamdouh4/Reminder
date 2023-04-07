@@ -9,10 +9,13 @@ use App\Models\Reminder;
 use App\Traits\ApiTrait;
 use App\Http\Requests\StoreReminderRequest;
 use App\Http\Resources\RemindersResource;
+use App\Traits\NotificationTrait;
+use Notification;
+use App\Notifications\ReminderNotification;
 
 class ReminderController extends Controller
 {
-    use ApiTrait;
+    use ApiTrait , NotificationTrait;
 
     public function addReminder(StoreReminderRequest $request){
         $user = auth()->user();
@@ -25,6 +28,13 @@ class ReminderController extends Controller
 
         $reminder = $patient->reminders()->create($request->validated());
        
+        $data = [
+            'title' => $reminder->title,
+            'body' => $reminder->dose,
+        ];
+        $patient->notify(new ReminderNotification($reminder));
+        $this->sendNotification($patient,$data);
+
         $msg = trans('home.added_successfully');
         return $this->successMsg($msg);
     }

@@ -55,7 +55,15 @@ class HistoryController extends Controller
 
     public function updateMedicalHistory(UpdateHistoryRequest $request)
     {
+        $user = auth()->user();
         $history = History::find($request->history_id);
+        
+        $patient = User::where('type','patient')->where('user_id',$user->id)->first();
+        if(!$patient){
+            $msg = trans('home.patient_not_fount');
+            return $this->failMsg($msg);
+        }
+        
         $history->update($request->except('tests'));
         $history->tests()->delete();
 
@@ -69,6 +77,13 @@ class HistoryController extends Controller
                 ]);
             }
         }
+
+        $data = [
+            'title' => $history->disease,
+            'body' => $history->diagnose,
+        ];
+        $patient->notify(new HistoryNotification($history));
+        $this->sendNotification($patient,$data);
 
         $msg = trans('home.updated_successfully');
         return $this->successMsg($msg);
