@@ -43,8 +43,8 @@ class HistoryController extends Controller
         }
 
         $data = [
-            'title' => 'family added history medical for you',
-            'body' => 'history is test first',
+            'title' => $history->disease,
+            'body' => $history->diagnose,
         ];
         $patient->notify(new HistoryNotification($history));
         $this->sendNotification($patient,$data);
