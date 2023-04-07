@@ -17,24 +17,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware("api.lang")->group(function () {
 
+    
     Route::group(['prefix' => 'user'], function () {
         Route::post('register', [\App\Http\Controllers\Api\AuthController::class, 'register']);
         Route::post('login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
     });
     Route::post('user_login', [\App\Http\Controllers\Api\AuthController::class, 'userLogin']);
-
+    
     Route::post('/password/forget', [\App\Http\Controllers\Api\AuthController::class, 'forgetPassword']);
     Route::post('/password/reset-activation', [\App\Http\Controllers\Api\AuthController::class, 'resetPasswordActivation']);
     Route::post('/password/reset', [\App\Http\Controllers\Api\AuthController::class, 'resetPassword']);
-
+    
     Route::get('/home', [\App\Http\Controllers\Api\HomeController::class, 'home']);
     Route::get('/countries', [\App\Http\Controllers\Api\HomeController::class, 'countries']);
-
+    
     Route::middleware('auth:api')->group( function () {
         Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
-       
+        
         // Route::middleware('api.active')->group(function () {
-
+            Route::get('/send-notification', [\App\Http\Controllers\Api\HistoryController::class, 'sendNotif']);
+            
           Route::post('add-medical-history', [\App\Http\Controllers\Api\HistoryController::class, 'addMedicalHistory']);
           Route::post('update-medical-history', [\App\Http\Controllers\Api\HistoryController::class, 'updateMedicalHistory']);
           Route::get('get-history', [\App\Http\Controllers\Api\HistoryController::class, 'getHistory']);

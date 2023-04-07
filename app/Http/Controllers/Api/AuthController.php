@@ -49,6 +49,7 @@ class AuthController extends Controller
         }
 
         $user = User::create($request->except('password_confirmation'));
+        $user->devices()->create(['device'=>$request['device_id']]);
 
         if($user->type == 'patient' || $user->type == 'care_giver'){
             $user->sendVerificationCode();
@@ -66,7 +67,10 @@ class AuthController extends Controller
         $phone  = $this->phoneValidate($number);
 
         if(Auth::attempt(['phone' => $phone, 'password' => $request->password])){
+            
             $user = Auth::user();
+            $user->devices()->updateOrCreate(['device'=>$request['device_id']]);
+            
             $data['token'] = $user->createToken('Laravel Password Grant Client')->accessToken;
             $data['user'] = new UserResource($user);
 
@@ -153,6 +157,9 @@ class AuthController extends Controller
 
     public function logout(Request $request) {
         $token = $request->user()->token();
+        $user = auth()->user();
+        $user->devices()->where(['device'=>$request['device_id']])->delete();
+
         $token->revoke();
 
         $msg = trans('auth.logout_success');

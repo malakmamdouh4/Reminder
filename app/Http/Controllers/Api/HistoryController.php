@@ -11,12 +11,13 @@ use App\Models\History;
 use App\Models\HistoryTest;
 use App\Models\User;
 use App\Traits\ApiTrait;
+use App\Traits\NotificationTrait;
 use Notification;
 use App\Notifications\HistoryNotification;
 
 class HistoryController extends Controller
 {
-    use ApiTrait;
+    use ApiTrait , NotificationTrait;
 
     public function addMedicalHistory(StoreHistoryRequest $request)
     {
@@ -41,8 +42,12 @@ class HistoryController extends Controller
             }
         }
 
-        // Notification::send($patient, new HistoryNotification($history));
+        $data = [
+            'title' => 'family added history medical for you',
+            'body' => 'history is test first',
+        ];
         $patient->notify(new HistoryNotification($history));
+        $this->sendNotification($patient,$data);
 
         $msg = trans('home.added_successfully');
         return $this->successMsg($msg);
