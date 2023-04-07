@@ -35,7 +35,6 @@ Route::middleware("api.lang")->group(function () {
         Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
         
         // Route::middleware('api.active')->group(function () {
-            Route::get('/send-notification', [\App\Http\Controllers\Api\HistoryController::class, 'sendNotif']);
             
           Route::post('add-medical-history', [\App\Http\Controllers\Api\HistoryController::class, 'addMedicalHistory']);
           Route::post('update-medical-history', [\App\Http\Controllers\Api\HistoryController::class, 'updateMedicalHistory']);
