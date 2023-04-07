@@ -49,7 +49,21 @@ class TaskController extends Controller
         $data['tasks'] = TasksResource::collection($patient->tasks);
 
         return $this->successReturn('',$data);
+    }
+
+    public function completeTask(Request $request){
+        $user = auth()->user();
+        $task = Task::where('id',$request->task_id)->where('user_id',$user->id)->first();
         
+        if(!$task){
+            $msg = trans('home.task_not_fount');
+            return $this->failMsg($msg);
+        }
+
+        $data = [];
+        $task->update(['is_completed' => 'true']);
+        $data['tasks'] = TasksResource::collection($user->tasks);
+        return $this->successReturn(trans('home.task_completed_successfully'),$data);
     }
 
 }
