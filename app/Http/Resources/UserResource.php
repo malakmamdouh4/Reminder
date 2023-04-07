@@ -30,6 +30,7 @@ class UserResource extends JsonResource
             'lat'                   => $this->lat ??'',
             'long'                  => $this->long ??'',
             'address'               => $this->address ??'',
+            'family_id'             => (int) $this->user_id ?? 0,
             'complete_patient_info' => $this->complete_patient_info =='true'?true:false,
             'complete_giver_info'   => $this->complete_giver_info =='true'?true:false,
         ];
