@@ -9,4 +9,9 @@ return [
     'task_not_fount' => 'task not fount',
     'task_completed_successfully' => 'task completed successfully',
     'family_add_task' => 'family add task ',
+    'family_add_track' => 'family add track ',
+    'family_add_history' => 'family add history ',
+    'family_add_reminder' => 'family add reminder ',
+    'family_add_memory' => 'family add memory ',
+
 ];
