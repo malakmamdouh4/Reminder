@@ -35,8 +35,12 @@ class TrackController extends Controller
         $patient->notify(new TrackNotification($track));
         $this->sendNotification($patient,$data);
 
-        $msg = trans('home.added_successfully');
-        return $this->successMsg($msg);
+        // $msg = trans('home.added_successfully');
+        // return $this->successMsg($msg);
+        $data = [];
+        $data['tracks'] = TracksResource::collection($patient->tracks);
+
+        return $this->successReturn('',$data);
     }
 
     public function getTracks(){

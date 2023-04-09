@@ -49,8 +49,12 @@ class HistoryController extends Controller
         $patient->notify(new HistoryNotification($history));
         $this->sendNotification($patient,$data);
 
-        $msg = trans('home.added_successfully');
-        return $this->successMsg($msg);
+        // $msg = trans('home.added_successfully');
+        // return $this->successMsg($msg);
+        $data = [];
+        $data['history'] = HistoriesResource::collection($patient->histories);
+
+        return $this->successReturn('',$data);
     }
 
     public function updateMedicalHistory(UpdateHistoryRequest $request)
@@ -85,8 +89,12 @@ class HistoryController extends Controller
         $patient->notify(new HistoryNotification($history));
         $this->sendNotification($patient,$data);
 
-        $msg = trans('home.updated_successfully');
-        return $this->successMsg($msg);
+        // $msg = trans('home.updated_successfully');
+        // return $this->successMsg($msg);
+        $data = [];
+        $data['history'] = HistoriesResource::collection($patient->histories);
+
+        return $this->successReturn('',$data);
     }
 
     public function getHistory(){
