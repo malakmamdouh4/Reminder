@@ -59,6 +59,8 @@ Route::middleware("api.lang")->group(function () {
           Route::post('update-location', [\App\Http\Controllers\Api\HomeController::class, 'updateLocation']);
           Route::get('get-location', [\App\Http\Controllers\Api\HomeController::class, 'getLocation']);
 
+          Route::get('/notifications',[\App\Http\Controllers\Api\HomeController::class,'notifications']);
+          Route::get('/unseen-notifications-count',[\App\Http\Controllers\Api\HomeController::class,'unseenNotificationsCount']);  
         // });
     });
 

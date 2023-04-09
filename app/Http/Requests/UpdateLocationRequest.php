@@ -20,7 +20,7 @@ class UpdateLocationRequest extends FormRequest
         return [
             'lat'           => 'required',
             'long'          => 'required',
-            'address'       => 'required',
+            'address'       => 'nullable',
         ];
     }
 

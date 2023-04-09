@@ -7,5 +7,6 @@ return [
     'deleted_successfully' => 'deleted successfully',
     'memory_not_fount' => 'memory not fount',
     'task_not_fount' => 'task not fount',
-    'task_completed_successfully' => 'task completed successfully'
+    'task_completed_successfully' => 'task completed successfully',
+    'family_add_task' => 'family add task ',
 ];

@@ -42,9 +42,9 @@ class AuthController extends Controller
                 $user->save();
                 $request['complete_patient_info']      = 'true';
             }elseif($request->type == 'care_giver'){
-                $user->complete_patient_info           = 'true';
+                $user->complete_giver_info             = 'true';
                 $user->save();
-                $request['complete_giver_info']      = 'true';
+                $request['complete_giver_info']        = 'true';
             }
         }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CountriesResource;
 use App\Http\Resources\HomeResource;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\NotificationsResource;
 use App\Http\Requests\UpdateLocationRequest;
 use App\Models\Country;
 use App\Models\User;
@@ -67,6 +68,21 @@ class HomeController extends Controller
         return $this->successReturnLogin('', $data);
     }
 
+    public function notifications(Request $request){
+        $user = auth('api')->user();
+        $user->unreadNotifications->markAsRead();
+        $user->refresh();
+        $notifications = $user->notifications()->orderBY('created_at','desc')->paginate($this->paginateNum());
+        $data['notifications']  =  NotificationsResource::collection($notifications);
+        $data['pagination']     =  $this->paginationModel($notifications);
+        return $this->successReturn('',$data);
+    }
 
+    public function unseenNotificationsCount(Request $request){
+        $user = auth('api')->user();
+        $num_of_notifications  = $user->notifications()->where('read_at',null)->count();
+        $data['num_not_seen_notifications']=$num_of_notifications;
+        return $this->successReturn('',$data);
+    }
 
 }

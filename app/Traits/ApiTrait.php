@@ -50,7 +50,6 @@ trait ApiTrait
 
     public function successReturnLogin($msg = '', $data = [], $code = 200): \Illuminate\Http\JsonResponse
     {
-
         return response()->json([
             'user_status' => $data['user']['status'],
             'msg' => $msg,
@@ -113,6 +112,24 @@ trait ApiTrait
             return true;
         }
         return false;
+    }
+
+    public function paginateNum(){
+        return 10;
+    }
+
+    public function paginationModel($col) {
+        $data = [
+          'total'         => $col->total() ?? 0,
+          'count'         => $col->count() ?? 0,
+          'per_page'      => $col->perPage() ?? 0,
+          'next_page_url' => $col->nextPageUrl() ?? '',
+          'perv_page_url' => $col->previousPageUrl() ?? '',
+          'current_page'  => $col->currentPage() ?? 0,
+          'total_pages'   => $col->lastPage() ?? 0,
+        ];
+
+        return $data;
     }
 
 }
