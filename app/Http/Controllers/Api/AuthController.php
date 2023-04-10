@@ -53,6 +53,7 @@ class AuthController extends Controller
 
         if($user->type == 'patient' || $user->type == 'care_giver'){
             $user->sendVerificationCode();
+            $user = User::find($request['user_id']);
         }
 
         $data['token'] = $user->createToken('Laravel Password Grant Client')->accessToken;
