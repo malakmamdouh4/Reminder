@@ -98,6 +98,7 @@ class AuthController extends Controller
             return $this->failMsg($msg);
         }
 
+        $user->devices()->updateOrCreate(['device'=>$request['device_id']]);
         $data['token'] = $user->createToken('Laravel Password Grant Client')->accessToken;
         $data['user'] = new UserResource($user);
         return $this->successReturnLogin('', $data);

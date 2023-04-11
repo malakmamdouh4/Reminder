@@ -20,6 +20,7 @@ class VerifyCodeRequest extends FormRequest
         return [
             'phone'    => 'required',
             'code'     => 'required',
+            'device_id'  => 'required',
         ];
     }
 
