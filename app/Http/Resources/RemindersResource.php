@@ -20,7 +20,7 @@ class RemindersResource extends JsonResource
         return [
             'id'                     => $this->id,
             'title'                  => $this->title ??'',
-            'date'                   => $this->date ??'',
+            'date'                   => $this->date ?  $this->date->isoFormat('YYYY - MMMM - D') : '',
             'from'                   => $this->from ??'',
             'to'                     => $this->to ??'',
             'repeat'                 => $this->repeat ??'',

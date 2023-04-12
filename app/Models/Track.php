@@ -18,6 +18,8 @@ class Track extends Model
         'file',
     ];
 
+    protected $dates = ['date'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

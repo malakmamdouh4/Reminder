@@ -16,6 +16,8 @@ class Memory extends Model
         'type',
     ];
 
+    protected $dates = ['date'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

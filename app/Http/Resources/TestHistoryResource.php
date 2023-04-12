@@ -21,7 +21,7 @@ class TestHistoryResource extends JsonResource
             'id'                     => $this->id,
             'test'                   => $this->test ??'',
             'result'                 => $this->result ??'',
-            'date'                   => $this->date ??'',
+            'date'                   => $this->date ?  $this->date->isoFormat('YYYY - MMMM - D') : '',
             'history_id'             => $this->history_id ??'',
         ];
     }

@@ -16,6 +16,8 @@ class HistoryTest extends Model
         'history_id',
     ];
 
+    protected $dates = ['date'];
+
     public function history()
     {
         return $this->belongsTo(History::class);
