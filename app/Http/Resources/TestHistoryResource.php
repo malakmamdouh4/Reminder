@@ -19,6 +19,7 @@ class TestHistoryResource extends JsonResource
     {
         return [
             'id'                     => $this->id,
+            'image'                  => $this->image ? $this->ImagePath : '' ,
             'test'                   => $this->test ??'',
             'result'                 => $this->result ??'',
             'date'                   => $this->date ?  $this->date->isoFormat('YYYY - MMMM - D') : '',

@@ -22,7 +22,8 @@ class StoreHistoryRequest extends FormRequest
             'degree'        => 'required',
             'diagnose'      => 'required',
             'symptoms'      => 'required',
-            'tests'         => 'required',
+            'tests'         => 'nullable',
+            'images'        => 'nullable' ,
         ];
     }
 

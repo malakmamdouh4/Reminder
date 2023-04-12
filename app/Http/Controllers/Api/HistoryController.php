@@ -42,6 +42,15 @@ class HistoryController extends Controller
             }
         }
 
+        if(isset($request['images'])) {
+           foreach($request['images'] as $image ){
+            HistoryTest::create([
+                'image' => $image,
+                'history_id' => $history->id,
+            ]);
+           }
+        }
+
         $data = [
             'title' => $history->disease,
             'body' => $history->diagnose,

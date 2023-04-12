@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('history_tests', function (Blueprint $table) {
             $table->id();
-            $table->string('test');
-            $table->string('result');
-            $table->string('date');
+            $table->string('test')->nullable();
+            $table->string('result')->nullable();
+            $table->string('date')->nullable();
+            $table->string('image')->nullable();
             $table->foreignId('history_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

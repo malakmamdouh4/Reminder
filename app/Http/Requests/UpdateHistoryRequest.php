@@ -23,6 +23,7 @@ class UpdateHistoryRequest extends FormRequest
             'diagnose'      => 'nullable',
             'symptoms'      => 'nullable',
             'tests'         => 'nullable',
+            'images'        => 'nullable',
             'history_id'    => 'required|exists:histories,id'
         ];
     }
