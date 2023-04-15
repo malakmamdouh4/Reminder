@@ -78,8 +78,7 @@ class HistoryController extends Controller
         }
         
         $history->update($request->except('tests'));
-        $history->tests()->delete();
-
+        
         if (isset($request['tests'])) {
             foreach (json_decode($request['tests']) as $t) {
                 HistoryTest::create([
@@ -90,6 +89,17 @@ class HistoryController extends Controller
                 ]);
             }
         }
+        
+        if(isset($request['images'])) {
+            $history->tests()->delete();
+            foreach($request['images'] as $image ){
+             HistoryTest::create([
+                 'image' => $image,
+                 'history_id' => $history->id,
+             ]);
+            }
+         }
+ 
 
         $data = [
             'title' => $history->disease,
