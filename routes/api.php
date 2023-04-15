@@ -61,6 +61,9 @@ Route::middleware("api.lang")->group(function () {
 
           Route::get('/notifications',[\App\Http\Controllers\Api\HomeController::class,'notifications']);
           Route::get('/unseen-notifications-count',[\App\Http\Controllers\Api\HomeController::class,'unseenNotificationsCount']);  
+       
+          Route::get('/get-exam',[\App\Http\Controllers\Api\ExamController::class,'getExam']);
+       
         // });
     });
 
