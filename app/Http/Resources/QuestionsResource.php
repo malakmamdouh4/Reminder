@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Traits\ApiTrait;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ExamsResource extends JsonResource
+class QuestionsResource extends JsonResource
 {
     use ApiTrait;
     /**
@@ -19,9 +19,8 @@ class ExamsResource extends JsonResource
     {
         return [
             'id'                     => $this->id,
-            'result'                 => (int)$this->result ??'',
-            'date'                   => $this->date ??'',
-            'time'                   => $this->getTime($this->time) ??'',
+            'question'               => $this->question ??'',
+            'answers'                => AnswersResource::collection($this->answers),
         ];
     }
 

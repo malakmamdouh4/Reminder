@@ -132,4 +132,11 @@ trait ApiTrait
         return $data;
     }
 
+    function getTime($delivery_time){
+        $time = '' ;
+        $time = date('h:i', strtotime($delivery_time)) ;
+        $time .= date('a',strtotime($delivery_time)) == 'am' ? ' ص ' : ' م ' ;
+        return $time;
+    }
+
 }

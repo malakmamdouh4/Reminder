@@ -13,5 +13,6 @@ return [
     'family_add_history' => 'family add history ',
     'family_add_reminder' => 'family add reminder ',
     'family_add_memory' => 'family add memory ',
+    'should_answer_first' => 'you should answer first'
 
 ];

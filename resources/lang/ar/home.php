@@ -13,4 +13,5 @@ return [
     'family_add_history' => 'قامت العائلة باضافة تاريخ طبي لك',
     'family_add_reminder' => 'قامت العائلة باضافة تذكير لك',
     'family_add_memory' => 'قامت العائلة باضافة تذكار لك',
+    'should_answer_first' => 'يجب عليك حل الاختبار اولا'
 ];
