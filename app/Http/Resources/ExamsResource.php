@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Traits\ApiTrait;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\User;
 
 class ExamsResource extends JsonResource
 {
@@ -19,7 +20,7 @@ class ExamsResource extends JsonResource
     {
         return [
             'id'                     => $this->id,
-            'result'                 => (int)$this->result ??'',
+            'result'                 => (int)$this->score ?? 0,
             'date'                   => $this->date ??'',
             'time'                   => $this->getTime($this->time) ??'',
         ];

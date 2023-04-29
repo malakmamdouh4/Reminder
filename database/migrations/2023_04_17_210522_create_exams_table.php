@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('result');
             $table->date('date');
             $table->string('time');
+            $table->string('exam_id');
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('question_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('answer_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

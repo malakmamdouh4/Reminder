@@ -9,6 +9,7 @@ use App\Http\Resources\ExamsResource;
 use App\Models\Question;
 use App\Models\Exam;
 use App\Models\User;
+use App\Models\Result;
 use App\Traits\ApiTrait;
 
 class ExamController extends Controller
@@ -26,25 +27,41 @@ class ExamController extends Controller
 
     public function doExam(Request $request){
       $user = auth()->user();
-
-      if (isset($request['answer'])) {
+      if (isset($request['answer_id'])) {
+        
+        $question = Question::find($request->question_id);
+        $answer = $question->answers()?->where('status','true')->first()?->id ; 
+        
         $result = 0 ; 
-
-        foreach (json_decode($request['answer']) as $test) {
-          $question = Question::find($test->question_id);
-          $answer = $question->answers()?->where('status','true')->first()?->id ; 
-          
-          if($answer == $test->answer_id){
-            $result += 10 ;
-          }
-
+        if($answer == $request->answer_id){
+          $result = 5 ;
         }
-          $user_result = Exam::create([
-              'result' => $result,
-              'time' => date("h:i:s"),
-              'date' => date('Y-m-d'),
-              'user_id' => $user->id,
-          ]);
+        
+        $user_result = Exam::create([
+          'result' => $result,
+          'time' => date("h:i:s"),
+          'date' => date('Y-m-d'),
+          'user_id' => $user->id,
+          'exam_id' => $request->exam_id,
+          'question_id' => $request->question_id,
+          'answer_id' => $request->answer_id,
+        ]);
+        
+        $exam = Result::where('exam_id',$request->exam_id)->first();
+        if($exam){
+              $exam->score += $result ;
+              $exam->date = date('Y-m-d');
+              $exam->time = date("h:i:s");
+              $exam->save();
+          }else{
+              Result::create([
+                'exam_id' => $request->exam_id,
+                'score' => $result,
+                'time' => date("h:i:s"),
+                'date' => date('Y-m-d'),
+                'user_id' => $user->id,
+              ]);
+          }
 
           return $this->successReturn('',$user_result->result);
       }else{

@@ -14,6 +14,9 @@ class Exam extends Model
         'date',
         'time',
         'user_id',
+        'exam_id',
+        'question_id',
+        'answer_id',
     ];
 
     public function user()
