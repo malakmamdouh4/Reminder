@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Auth\SignUpWithSocialRequest;
 use App\Http\Requests\ForgetPasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\VerifyCodeRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Authentication;
 use App\Models\User;
 use App\Traits\ApiTrait;
 use Illuminate\Http\Request;
@@ -67,18 +69,22 @@ class AuthController extends Controller
         $number = $this->convert2english($request->phone);
         $phone  = $this->phoneValidate($number);
 
-        if(Auth::attempt(['phone' => $phone, 'password' => $request->password])){
-            
-            $user = Auth::user();
-            $user->devices()->updateOrCreate(['device'=>$request['device_id']]);
-            
-            $data['token'] = $user->createToken('Laravel Password Grant Client')->accessToken;
-            $data['user'] = new UserResource($user);
+        if(!$request['social_id']) {
+            if (Auth::attempt(['phone' => $phone, 'password' => $request->password])) {
 
-            return $this->successReturnLogin('', $data);
+                $user = Auth::user();
+                $user->devices()->updateOrCreate(['device' => $request['device_id']]);
+
+                $data['token'] = $user->createToken('Laravel Password Grant Client')->accessToken;
+                $data['user'] = new UserResource($user);
+
+                return $this->successReturnLogin('', $data);
+            } else {
+                $msg = trans('auth.wrong_credentials');
+                return $this->failMsg($msg);
+            }
         }else{
-            $msg = trans('auth.wrong_credentials');
-            return $this->failMsg($msg);
+           return $this->loginWithSocial($request);
         }
     }
 
@@ -167,5 +173,74 @@ class AuthController extends Controller
         $msg = trans('auth.logout_success');
         return $this->successMsg($msg);
     }
+
+    public function loginWithSocial(Request $request){
+        $data = [];
+        $lang = $request->header('lang');
+        if($authentication = Authentication::with('user')->where('uid','=',$request->social_id)->first()){
+            $authentication->update([
+                'username'=>$request->name ?? '',
+                'email'=>$request->email??'',
+            ]);
+            if($user = $authentication->user){
+                $user->update([
+                    'name'=>$request->name ?? '',
+                    'email'=>$request->email??'',
+                    'phone'=>$request->phone??'',
+                    'status'=>'active',
+                    'active'=>1,
+                    'completed_info'=>'true',
+                ]);
+//                $data['registered_social'] = false;
+//                $data['phone_registered']  = ($user->phone != null )? true : false;
+            }
+        }else{
+            if($request->email && $user = User::where('email','=',$request->email)->first()){
+                $user->update(['name'=>$request->name ?? '' ]);
+                $authentication = Authentication::create([
+                    'uid'      => $request->social_id,
+                    'user_id'  => $user->id,
+                    'username' => $request->name,
+                    'email'    => $request->email,
+                ]);
+//                $data['phone_registered']  = ( $user->phone != null )? true : false;
+//                $data['registered_social'] = true;
+            }else{
+                $user=User::create([
+                    'name'=>$request->name ?? '',
+                    'email'=>$request->email??'',
+                    'phone'=>$request->phone??'',
+                    'status'=>'active',
+                    'active'=>1,
+                    'completed_info'=>'true',
+                    'type' => 'family',
+                ]);
+                $user->code=$user->sendVerificationCode();
+                $user->update();
+                $authentication = Authentication::create([
+                    'uid'      => $request->social_id,
+                    'user_id'  => $user->id,
+                    'username' => $request->name,
+                    'email'    => $request->email,
+                ]);
+//                $data['phone_registered']  = ( $user->phone != null )? true : false;
+//                $data['registered_social'] = false;
+            }
+        }
+
+        $user->devices()->updateOrCreate(['device' => $request['device_id']]);
+        $is_registered = false;
+        if( $user->name ){
+            $is_registered = true;
+        }else{
+            $is_registered = false;
+        }
+        $data['token'] = $user->createToken('Laravel Password Grant Client')->accessToken;
+        $data['user'] = new UserResource($user);
+        $data['user']['is_registered'] = $is_registered;
+
+        return $this->successReturn('', $data);
+    }
+
 
 }
