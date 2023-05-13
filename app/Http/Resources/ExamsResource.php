@@ -20,7 +20,7 @@ class ExamsResource extends JsonResource
     {
         return [
             'id'                     => $this->id,
-            'result'                 => (int)$this->score ?? 0,
+            'result'                 => (int)$this->result ?? 0,
             'date'                   => $this->date ??'',
             'time'                   => $this->getTime($this->time) ??'',
         ];
