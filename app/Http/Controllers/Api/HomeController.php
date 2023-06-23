@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     use ApiTrait;
-    public function home(){
+    public function home(Request $request){
        $lang = $request->header('lang') ?? 'ar';
 
        $data = [];
