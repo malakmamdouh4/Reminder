@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('title');
+            $table->enum('user_type',['family','friend','mate'])->nullable();
             $table->enum('type',['general','occasional'])->default('general');
             $table->string('date')->nullable();
             $table->timestamps();

@@ -49,7 +49,7 @@ class HomeController extends Controller
     public function getLocation()
     {
         $user = auth()->user();
-       
+
         if($user->type == 'family'){
             $patient = User::where('type','patient')->where('user_id',$user->id)->first();
         }elseif($user->type == 'patient'){
@@ -57,7 +57,7 @@ class HomeController extends Controller
         }elseif($user->type == 'care_giver'){
             $patient = $user->parent?->branches()?->where('type','patient')->first();
         }
-        
+
         if(!$patient){
             $msg = trans('home.patient_not_fount');
             return $this->failMsg($msg);

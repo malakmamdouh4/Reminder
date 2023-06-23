@@ -27,7 +27,7 @@ class ReminderController extends Controller
         }
 
         $reminder = $patient->reminders()->create($request->validated());
-       
+
         $data = [
             'title' => $reminder->title,
             'body' => $reminder->dose,
@@ -46,7 +46,7 @@ class ReminderController extends Controller
 
     public function getReminders(){
         $user = auth()->user();
-        
+
         if($user->type == 'family'){
             $patient = User::where('type','patient')->where('user_id',$user->id)->first();
         }elseif($user->type == 'patient'){
@@ -70,9 +70,6 @@ class ReminderController extends Controller
     {
         $reminder = Reminder::find($request->reminder_id);
         $reminder->update($request->all());
-
-        // $msg = trans('home.updated_successfully');
-        // return $this->successMsg($msg);
         $user = auth()->user();
         $patient = User::where('type','patient')->where('user_id',$user->id)->first();
 
@@ -86,7 +83,7 @@ class ReminderController extends Controller
         return $this->successReturn('',$data);
     }
 
-    
+
     public function deleteReminder(Request $request)
     {
         $reminder = Reminder::find($request->reminder_id)->delete();

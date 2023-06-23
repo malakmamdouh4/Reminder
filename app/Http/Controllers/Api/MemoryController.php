@@ -37,21 +37,19 @@ class MemoryController extends Controller
                 ]);
            }
         }
-
         $data = [
             'title' => $memory->title,
             'body' => $memory->date,
         ];
         $patient->notify(new MemoryNotification($memory));
         $this->sendNotification($patient,$data);
-       
         $msg = trans('home.added_successfully');
         return $this->successMsg($msg);
     }
 
     public function getMemories(){
         $user = auth()->user();
-        
+
         if($user->type == 'family'){
             $patient = User::where('type','patient')->where('user_id',$user->id)->first();
         }elseif($user->type == 'patient'){
@@ -59,7 +57,7 @@ class MemoryController extends Controller
         }elseif($user->type == 'care_giver'){
             $patient = $user->parent?->branches()?->where('type','patient')->first();
         }
-        
+
         if(!$patient){
             $msg = trans('home.patient_not_fount');
             return $this->failMsg($msg);
@@ -72,12 +70,11 @@ class MemoryController extends Controller
         $data['occasional'] = MemoriesResource::collection($occasional_memories);
 
         return $this->successReturn('',$data);
-        
     }
 
     public function getMemory(Request $request){
         $memory = Memory::find($request->memory_id);
-       
+
         if(!$memory){
             $msg = trans('home.memory_not_fount');
             return $this->failMsg($msg);

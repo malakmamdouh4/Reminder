@@ -22,6 +22,7 @@ class MemoriesResource extends JsonResource
             'title'                  => $this->title ??'',
             'date'                   =>$this->date ?  $this->date->isoFormat('YYYY - MMMM - D') : '',
             'type'                   => $this->type ??'',
+            'user_type'              => $this->user_type ?? 'family',
             'media'                  => $this->files?->first()?->filePath,
         ];
     }

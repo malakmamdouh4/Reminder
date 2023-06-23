@@ -14,6 +14,7 @@ class Memory extends Model
         'date',
         'user_id',
         'type',
+        'user_type'
     ];
 
     protected $dates = ['date'];
